@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.ReactiveUI.Authorization.Views.LoginPage">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand"
+              Grid.RowSpacing="10"
+              WidthRequest="150">
+            <Entry x:Name="Username" Placeholder="username"/>
+            <Entry x:Name="Password" IsPassword="True" Placeholder="password"/>
+            <Button x:Name="LoginEvent" WidthRequest="75" Text="Login" HorizontalOptions="CenterAndExpand"/>
+            <Label x:Name="Message" Text="Loading..." HorizontalTextAlignment="Center"/>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
