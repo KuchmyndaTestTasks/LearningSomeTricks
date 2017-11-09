@@ -20,27 +20,30 @@ namespace App.ReactiveUI.Authorization.ViewModels
         is done. This is not a property we want to set from our View. It's a "read-only" calculated property that can 
         only be set by the LoginViewModel.
      */
-    public class LoginViewModel:ReactiveObject
+    public class LoginViewModel : ReactiveObject
     {
         #region <Constructors & Destructors>
 
         public LoginViewModel()
         {
-            var canLogin = this.WhenAnyValue(x => Email, x => Password, (email, password) =>
-             !String.IsNullOrWhiteSpace(email) &&
-                Regex.IsMatch(email,
-                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
-                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)) &&
-                // check if password not empty
-                !String.IsNullOrWhiteSpace(password));
+            //TODO BUG: need fix command
+            var canLogin = this.WhenAnyValue(x => x.Email, x => x.Password, (email, password) =>
+            {
+                return !String.IsNullOrWhiteSpace(email) &&
+                       /*Regex.IsMatch(email,
+                           @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                           @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                           RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)) &&*/
+                       // check if password not empty
+                       !String.IsNullOrWhiteSpace(password);
+            });
 
             /*
                 Now our ReactiveCommand for the Login button can observe the canLogin to 
                 enable/disable the button. When the button is clicked we'll execute an 
                 async Task. So in the constructor of our ViewModel we add:
             */
-            LoginCommand = ReactiveCommand.CreateAsyncTask(canLogin,async o =>
+            LoginCommand = ReactiveCommand.CreateAsyncTask(canLogin, async o =>
             {
                 await Task.Delay(4000).ConfigureAwait(false);
             });
@@ -50,6 +53,7 @@ namespace App.ReactiveUI.Authorization.ViewModels
             //of our ViewModel we add:
             LoginCommand.IsExecuting.ToProperty(this, x => x.IsLoading, out _isLoading);
         }
+
         /*
          *  Now you can start the app and look if you have errors. The app however still doesn't react to anything. First we'll add an observable so we can verify if we can click on the Login button or not. 
             So we need an observable that changes when
@@ -57,11 +61,15 @@ namespace App.ReactiveUI.Authorization.ViewModels
             Password is not empty 
             In the constructor of the LoginViewModel we add:
          */
+
         #endregion
+
         #region <Fields>
+
         private string _email;
         private string _password;
         private readonly ObservableAsPropertyHelper<bool> _isLoading;
+
         #endregion
 
         #region <Properties>
@@ -71,13 +79,13 @@ namespace App.ReactiveUI.Authorization.ViewModels
 
         public string Email
         {
-            get { return _email??""; }
+            get { return _email ?? ""; }
             set { this.RaiseAndSetIfChanged(ref _email, value); }
         }
 
         public string Password
         {
-            get { return _password??""; }
+            get { return _password ?? ""; }
             set { this.RaiseAndSetIfChanged(ref _password, value); }
         }
 

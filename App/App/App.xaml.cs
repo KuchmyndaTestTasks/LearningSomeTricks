@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using App.ReactiveUI.Authorization.Views;
+using App.ReactiveUI.Xamarin.Maps.Views;
 using Xamarin.Forms;
 
 namespace App
@@ -13,7 +14,7 @@ namespace App
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new NavPage();
         }
 
         protected override void OnStart()

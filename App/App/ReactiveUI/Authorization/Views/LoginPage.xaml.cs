@@ -17,7 +17,7 @@ namespace App.ReactiveUI.Authorization.Views
             ViewModel = new LoginViewModel();
             this.Bind(ViewModel, viewModel => viewModel.Password,p=>p.Password.Text);
             this.Bind(ViewModel, viewModel => viewModel.Email, p => p.Username.Text);
-            this.BindCommand(ViewModel, viewModel => viewModel.LoginCommand, p => p.LoginEvent);
+            this.BindCommand(ViewModel, viewModel => viewModel.LoginCommand, p => p.LoginButton);
 
             /*
              * Finally our View needs to enable and disable the Email textbox,
@@ -31,7 +31,7 @@ namespace App.ReactiveUI.Authorization.Views
                 {
                     Username.IsEnabled = !busyState;
                     Password.IsEnabled = !busyState;
-                    LoginEvent.IsEnabled = busyState;
+                    Message.IsEnabled = busyState;
                 });
         }
 
