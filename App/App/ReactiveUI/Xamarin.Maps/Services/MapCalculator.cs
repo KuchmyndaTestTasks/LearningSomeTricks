@@ -64,32 +64,6 @@ namespace App.ReactiveUI.Xamarin.Maps.Services
             return new Position(RadToDeg(φ3), (RadToDeg(λ3) + 540) % 360 - 180); //for normalising to -180..180
         }
 
-        public static Position CenterOfPoints(params Position[] positions)
-        {
-            var lon = positions.Sum(x => x.Longitude);
-            var lat = positions.Sum(x => x.Latitude);
-            var size = positions.Length;
-            return  new Position(lon/size, lat/size);
-        }
-        public static double CalculateDistance(Position from, Position to, DistanceUnit unit)
-        {
-            var theta = from.Longitude - to.Longitude;
-            var dist = Sin(DegToRad(from.Latitude)) * Sin(DegToRad(to.Latitude)) +
-                       Cos(DegToRad(from.Latitude)) * Cos(DegToRad(to.Latitude)) * Cos(DegToRad(theta));
-            dist = Acos(dist);
-            dist = RadToDeg(dist);
-            dist = dist * 60 * 1.1515;
-            if (unit == DistanceUnit.Kilometer)
-            {
-                dist *= 1.609344;
-            }
-            else if (unit == DistanceUnit.Mile)
-            {
-                dist *= .8684;
-            }
-            return dist;
-        }
-
         private static double DegToRad(double deg) => deg * PI / 180;
         private static double RadToDeg(double rad) => rad / PI * 180;
     }

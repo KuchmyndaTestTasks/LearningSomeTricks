@@ -6,8 +6,7 @@
     <ContentPage.Content>
         <Grid>
             <maps:Map x:Name="Map" IsShowingUser="True"
-                      HasScrollEnabled="true" HasZoomEnabled="True" MapType="Street"
-                      />
+                      HasScrollEnabled="true" HasZoomEnabled="True" MapType="Street"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

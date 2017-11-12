@@ -24,8 +24,6 @@ namespace App.ReactiveUI.Xamarin.Maps.Views
         {
             InitializeComponent();
             ViewModel = new NavPageViewModel();
-            //xamarin maps pins
-            //this.Bind(ViewModel, vm => vm.RouteTrip, v => v.Route);
             this.WhenAnyValue(x => x.ViewModel.RouteTrip)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(trip =>
@@ -33,9 +31,6 @@ namespace App.ReactiveUI.Xamarin.Maps.Views
                     Map.Pins.Add(new Pin() {Position = trip.from, Type = PinType.Place, Label = "user"});
                     Map.Pins.Add(new Pin() {Position = trip.to, Type = PinType.Place, Label = "your place"});
                     Map.MoveToRegion(MapCalculator.GetCenteredZoom(trip.from, trip.to));
-                    //Map.MoveToRegion(MapSpan.FromCenterAndRadius(MapCalculator.CenterOfPoints(trip.from,trip.to),
-                    //    Distance.FromKilometers(MapCalculator.CalculateDistance(trip.from, trip.to,
-                    //        MapCalculator.DistanceUnit.Kilometer))));
                 });
         }
 

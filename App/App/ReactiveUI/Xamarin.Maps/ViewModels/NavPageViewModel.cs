@@ -8,8 +8,8 @@ namespace App.ReactiveUI.Xamarin.Maps.ViewModels
     {
         public struct Route
         {
-            public global::Xamarin.Forms.Maps.Position from { get; set; }
-            public global::Xamarin.Forms.Maps.Position to { get; set; }
+            public Position from { get; set; }
+            public Position to { get; set; }
         }
        
         #region <Constructors>
